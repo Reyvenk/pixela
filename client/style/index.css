@@ -52,7 +52,8 @@ body {
 
 .input-color,
 .del,
-.gomme {
+.color-set,
+.display {
   position: fixed;
   right: 50px;
   border: none;
@@ -69,12 +70,12 @@ body {
   top: 50px;
 }
 
-.gomme {
-  top: 190px;
-}
-
 .del {
   top: 120px;
+}
+
+.display {
+  top: 190px;
 }
 
 .title {
@@ -92,5 +93,26 @@ body {
 @media (max-width: 600px) {
   body {
     overflow: hidden;
+  }
+  .input-color {
+    left: 50px;
+    bottom: 50px;
+    top: unset;
+  }
+
+  .del {
+    left: 120px;
+    bottom: 50px;
+    top: unset;
+  }
+
+  .display {
+    left: 190px;
+    bottom: 50px;
+    top: unset;
+  }
+
+  .color-set {
+    right: 20px;
   }
 }

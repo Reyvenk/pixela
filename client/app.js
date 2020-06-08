@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   if (window.matchMedia('(max-width: 600px)').matches) {
     var nbColumn = 32
-    var nbLine = 68
+    var nbLine = 100
   } else {
     var nbColumn = 128
     var nbLine = 62
@@ -27,9 +27,9 @@ $(document).ready(function () {
     }
     colCtn++
   }
-
   // Color the grid //
   var isDown = false
+  var display = true
 
   $(document)
     .mousedown(function () {
@@ -42,6 +42,8 @@ $(document).ready(function () {
   $('.pixel').click(function (event) {
     var id = event.target.id
     var color = getColor()
+    createSet(color)
+    displayed(display)
     $('#' + id).css({ backgroundColor: color })
   })
 
@@ -49,15 +51,35 @@ $(document).ready(function () {
     if (isDown) {
       var color = getColor()
       var id = event.target.id
+      createSet(color)
+      displayed(display)
       $('#' + id).css({ backgroundColor: color })
     }
   })
 
   $('.del').click(function (event) {
-    console.log('df')
+    $('.color-set').remove()
     $('.pixel').css({ backgroundColor: '' })
   })
+
+  // Display //
+  $('.display').click(function (event) {
+    if (display == true) {
+      display = false
+    } else {
+      display = true
+    }
+    displayed(display)
+  })
 })
+
+function displayed(display) {
+  if (display == true) {
+    $('.icon').css({ visibility: 'visible' })
+  } else {
+    $('.icon').css({ visibility: 'hidden' })
+  }
+}
 
 // Get Color //
 function getColor(event) {
@@ -68,4 +90,25 @@ function getColor(event) {
     color = '#' + color
   }
   return color
+}
+
+function setColor(color) {
+  $('.input-color').val(color)
+}
+
+function createSet(color) {
+  newcolor = color.replace('#', '')
+  var count = $('.color-set').length + 1
+
+  var top = 220 + count * 70
+  if (document.getElementById(newcolor) == null && count <= 6) {
+    $('body').append(
+      '<div class="color-set icon ' + count + '" id ="' + newcolor + '"></div>'
+    )
+    $('.color-set').click(function (event) {
+      console.log($(this).attr('id'))
+      setColor('#' + $(this).attr('id'))
+    })
+    $('#' + newcolor).css({ backgroundColor: '#' + newcolor, top: top })
+  }
 }
